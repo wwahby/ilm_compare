@@ -1,0 +1,166 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Iidf	.\ilm_comparison.py	/^Iidf = np.append(Iidf, np.zeros(length_diff) )$/;"	v
+Mt	.\ilm_tests.py	/^Mt = f3d*Nt**2$/;"	v
+N_strata	.\ilm_comparison.py	/^N_strata = 2$/;"	v
+N_strata	.\ilm_tests.py	/^N_strata = 2$/;"	v
+N_tsv_gates	.\ilm_tests.py	/^N_tsv_gates = Ns* max_area_ratio\/(1-max_area_ratio)$/;"	v
+N_tsv_gates_1d	.\ilm_tests.py	/^N_tsv_gates_1d = math.floor(math.sqrt(N_tsv_gates))$/;"	v
+N_tsvs_1d	.\ilm_tests.py	/^N_tsvs_1d = math.floor(N_tsv_gates_1d\/w)$/;"	v
+Ng	.\ilm_comparison.py	/^Ng = 1e9 # number of gates$/;"	v
+Ng	.\ilm_tests.py	/^Ng = 1e9 # number of gates$/;"	v
+Ns	.\ilm_tests.py	/^Ns = Nt\/S # Avg number of gates per stratum$/;"	v
+Nsc	.\ilm_tests.py	/^Nsc = math.ceil(Ns + N_tsv_gates)$/;"	v
+Nt	.\ilm_tests.py	/^Nt = Ng # total number of gates$/;"	v
+Ntc	.\ilm_tests.py	/^Ntc = S*Nsc$/;"	v
+Nx	.\ilm_tests.py	/^Nx = int(math.floor(math.sqrt(Ns)))$/;"	v
+Nxc	.\ilm_tests.py	/^Nxc = math.floor(math.sqrt(Nsc))$/;"	v
+S	.\ilm_tests.py	/^S = N_strata # number of strata$/;"	v
+T	.\ilm_tests.py	/^T = math.floor(Nxc\/N_tsvs_1d)$/;"	v
+alpha	.\ilm_comparison.py	/^alpha = fo\/(fo+1) # input terminal fraction$/;"	v
+alpha	.\ilm_tests.py	/^alpha = fo\/(fo+1) # input terminal fraction$/;"	v
+calc_Mtcorr_newcalc	.\ilm_support_functions.py	/^def calc_Mtcorr_newcalc(Nt,Nx,t,w,T,Ntsvs_1d):$/;"	f
+calc_Mtcorr_newcalc	.\ilm_support_functions_old.py	/^def calc_Mtcorr_newcalc(Nt,Nx,t,w,T,Ntsvs_1d):$/;"	f
+calc_g	.\ilm_support_functions.py	/^def calc_g(lx,t,w,T,Ntsvs,lxmax):$/;"	f
+calc_g	.\ilm_support_functions_old.py	/^def calc_g(lx,t,w,T,Ntsvs,lxmax):$/;"	f
+calc_h	.\ilm_support_functions.py	/^def calc_h(lx,t,w,T,Ntsvs,lxmax):$/;"	f
+calc_h	.\ilm_support_functions_old.py	/^def calc_h(lx,t,w,T,Ntsvs,lxmax):$/;"	f
+compare_calculations	.\ilm_support_functions.py	/^def compare_calculations(use_corrected, Ng, N_strata,r,p,fo,alpha,k,max_area_ratio,w):$/;"	f
+compare_calculations	.\ilm_support_functions_old.py	/^def compare_calculations(use_corrected, Ng, N_strata,r,p,fo,alpha,k,max_area_ratio,w):$/;"	f
+dd	.\ilm_support_functions.py	/^def dd(b):$/;"	f
+dd	.\ilm_support_functions_old.py	/^def dd(b):$/;"	f
+ddb	.\ilm_support_functions.py	/^def ddb(b):$/;"	f
+ddb	.\ilm_support_functions_old.py	/^def ddb(b):$/;"	f
+ddf	.\ilm_support_functions.py	/^def ddf(b):$/;"	f
+ddf	.\ilm_support_functions_old.py	/^def ddf(b):$/;"	f
+err_Iidf	.\ilm_comparison.py	/^err_Iidf = abs(Iidf_corr - Iidf)$/;"	v
+f3d	.\ilm_tests.py	/^f3d = np.zeros(len(lengths))$/;"	v
+fo	.\ilm_comparison.py	/^fo = 4 # avg fanout$/;"	v
+fo	.\ilm_tests.py	/^fo = 4 # avg fanout$/;"	v
+g	.\ilm_tests.py	/^g = np.zeros(len(lengths_x))$/;"	v
+getAltNg_pyr	.\ilm_support_functions.py	/^def getAltNg_pyr(r,r_step,N_step):$/;"	f
+getAltNg_pyr	.\ilm_support_functions_old.py	/^def getAltNg_pyr(r,r_step,N_step):$/;"	f
+getAltNg_pyr_vec	.\ilm_support_functions.py	/^def getAltNg_pyr_vec(r,r_step,N_step):$/;"	f
+getAltNg_pyr_vec2	.\ilm_support_functions.py	/^def getAltNg_pyr_vec2(r,r_step,N_step):$/;"	f
+getIexp	.\ilm_support_functions.py	/^def getIexp(alpha,k,p,Nb,Nc):$/;"	f
+getIexp	.\ilm_support_functions_old.py	/^def getIexp(alpha,k,p,Nb,Nc):$/;"	f
+getIexp_vec	.\ilm_support_functions.py	/^def getIexp_vec(alpha,k,p,Nb,Nc):$/;"	f
+getIidf	.\ilm_support_functions.py	/^def getIidf(Nt,lmax,S,r,alpha,k,p):$/;"	f
+getIidf	.\ilm_support_functions_old.py	/^def getIidf(Nt,lmax,S,r,alpha,k,p):$/;"	f
+getMt	.\ilm_support_functions.py	/^def getMt(Ns,l,r,S,Mt_intra_corr,use_corrected):$/;"	f
+getMt	.\ilm_support_functions_old.py	/^def getMt(Ns,l,r,S,Mt_intra_corr,use_corrected):$/;"	f
+getMt_int_ra	.\ilm_support_functions.py	/^def getMt_int_ra(Ns,l,Mt_intra_corr,use_corrected):$/;"	f
+getMt_int_ra	.\ilm_support_functions_old.py	/^def getMt_int_ra(Ns,l,Mt_intra_corr,use_corrected):$/;"	f
+getMt_intra_vec	.\ilm_support_functions.py	/^def getMt_intra_vec(Ns,lmax):$/;"	f
+getMt_vec	.\ilm_support_functions.py	/^def getMt_vec(Ns,lmax,r,S,Mt_intra):$/;"	f
+getN_nonstart_bot	.\ilm_support_functions.py	/^def getN_nonstart_bot(Ns, l, S, r):$/;"	f
+getN_nonstart_bot	.\ilm_support_functions_old.py	/^def getN_nonstart_bot(Ns, l, S, r):$/;"	f
+getN_nonstart_bot_vec	.\ilm_support_functions.py	/^def getN_nonstart_bot_vec(Ns, lmax, S, r):$/;"	f
+getN_nonstart_top	.\ilm_support_functions.py	/^def getN_nonstart_top(Ns, l):$/;"	f
+getN_nonstart_top	.\ilm_support_functions_old.py	/^def getN_nonstart_top(Ns, l):$/;"	f
+getN_nonstart_top_vec	.\ilm_support_functions.py	/^def getN_nonstart_top_vec(Ns,lmax):$/;"	f
+getNb	.\ilm_support_functions.py	/^def getNb(Nc):$/;"	f
+getNb	.\ilm_support_functions_old.py	/^def getNb(Nc):$/;"	f
+getNb_vec	.\ilm_support_functions.py	/^def getNb_vec(Nc):$/;"	f
+getNc	.\ilm_support_functions_old.py	/^def getNc(Nt, Ns, l, Mt, S, r):$/;"	f
+getNc_vec	.\ilm_support_functions.py	/^def getNc_vec(Nt, Ns, lmax, Mt, S, r):$/;"	f
+getNg_pyr	.\ilm_support_functions.py	/^def getNg_pyr(r,r_step,N_step):$/;"	f
+getNg_pyr	.\ilm_support_functions_old.py	/^def getNg_pyr(r,r_step,N_step):$/;"	f
+getNstart	.\ilm_support_functions.py	/^def getNstart(Nt, Ns, l, S, r):$/;"	f
+getNstart	.\ilm_support_functions_old.py	/^def getNstart(Nt, Ns, l, S, r):$/;"	f
+getNstart_vec	.\ilm_support_functions.py	/^def getNstart_vec(Nt, Ns, lmax, S, r):$/;"	f
+gx	.\ilm_tests.py	/^		gx = g[lx]$/;"	v
+gy	.\ilm_tests.py	/^			gy = 0$/;"	v
+gy	.\ilm_tests.py	/^			gy = g[ly]$/;"	v
+h	.\ilm_tests.py	/^h = np.zeros(len(lengths_x))$/;"	v
+hconv	.\ilm_tests.py	/^hconv = np.convolve(h,h,'same')$/;"	v
+hx	.\ilm_tests.py	/^		hx = h[lx]$/;"	v
+hy	.\ilm_tests.py	/^			hy = 0$/;"	v
+hy	.\ilm_tests.py	/^			hy = h[ly]$/;"	v
+ilms	.\ilm_comparison.py	/^import ilm_support_functions as ilms$/;"	i
+ilms	.\ilm_tests.py	/^import ilm_support_functions as ilms$/;"	i
+j2d	.\ilm_tests.py	/^j2d = np.zeros(len(lengths))$/;"	v
+j2dnum	.\ilm_tests.py	/^		j2dnum = j2d[l]$/;"	v
+j2dnum	.\ilm_tests.py	/^		j2dnum = j2d[l]\/2$/;"	v
+joyner_lin	.\ilm_support_functions.py	/^def joyner_lin(l,Nt):$/;"	f
+joyner_lin	.\ilm_support_functions_old.py	/^def joyner_lin(l,Nt):$/;"	f
+joyner_lin_vec	.\ilm_support_functions.py	/^def joyner_lin_vec(lmax,Nt):$/;"	f
+k	.\ilm_comparison.py	/^k = 3\/alpha$/;"	v
+k	.\ilm_tests.py	/^k = 3\/alpha$/;"	v
+length_diff	.\ilm_comparison.py	/^length_diff = len(Iidf_corr)-len(Iidf)$/;"	v
+lengths	.\ilm_tests.py	/^lengths = range(lmax+1)$/;"	v
+lengths_x	.\ilm_tests.py	/^lengths_x = range(lxmax+1)$/;"	v
+lengths_x_inner	.\ilm_tests.py	/^	lengths_x_inner = range(lxmin_inner,lxmax_inner+1)$/;"	v
+lmax	.\ilm_comparison.py	/^lmax = 2*math.sqrt(Ng)$/;"	v
+lmax	.\ilm_tests.py	/^lmax = int(lmax_3d)$/;"	v
+lmax_2d	.\ilm_tests.py	/^lmax_2d = 2*math.sqrt(Ns) # max 2D wirelength (assuming optimal routing)$/;"	v
+lmax_3d	.\ilm_tests.py	/^lmax_3d = lmax_2d + (N_strata-1)*r # max 3D wirelength (assuming optimal routing)$/;"	v
+lmax_corr	.\ilm_comparison.py	/^lmax_corr = lmax_single_corr + r$/;"	v
+lmax_single_corr	.\ilm_comparison.py	/^lmax_single_corr = 2*Nxc_corr$/;"	v
+lxmax	.\ilm_tests.py	/^lxmax = int(Nxc)$/;"	v
+lxmax_inner	.\ilm_tests.py	/^		lxmax_inner = l$/;"	v
+lxmax_inner	.\ilm_tests.py	/^		lxmax_inner = lxmax$/;"	v
+lxmin_inner	.\ilm_tests.py	/^		lxmin_inner = 0$/;"	v
+lxmin_inner	.\ilm_tests.py	/^		lxmin_inner = l-Nx$/;"	v
+ly	.\ilm_tests.py	/^		ly = l-lx$/;"	v
+math	.\ilm_comparison.py	/^import math$/;"	i
+math	.\ilm_support_functions.py	/^import math$/;"	i
+math	.\ilm_support_functions_old.py	/^import math$/;"	i
+math	.\ilm_tests.py	/^import math$/;"	i
+matplotlib	.\ilm_comparison.py	/^import matplotlib.pyplot as plt$/;"	i
+matplotlib	.\ilm_support_functions.py	/^import matplotlib.pyplot as plt$/;"	i
+matplotlib	.\ilm_support_functions_old.py	/^import matplotlib.pyplot as plt$/;"	i
+matplotlib	.\ilm_tests.py	/^import matplotlib.pyplot as plt$/;"	i
+max_area_ratio	.\ilm_comparison.py	/^max_area_ratio = 0.10 # ratio of total TSV area to chip area$/;"	v
+max_area_ratio	.\ilm_tests.py	/^max_area_ratio = 0.10 # ratio of total TSV area to chip area$/;"	v
+mpl	.\ilm_support_functions.py	/^import matplotlib as mpl$/;"	i
+mpl	.\ilm_support_functions_old.py	/^import matplotlib as mpl$/;"	i
+norm_err_Iidf	.\ilm_comparison.py	/^norm_err_Iidf = err_Iidf\/Iidf_corr$/;"	v
+np	.\ilm_comparison.py	/^import numpy as np$/;"	i
+np	.\ilm_support_functions.py	/^import numpy as np$/;"	i
+np	.\ilm_support_functions_old.py	/^import numpy as np$/;"	i
+np	.\ilm_tests.py	/^import numpy as np$/;"	i
+p	.\ilm_comparison.py	/^p = 0.6 # rent exponent$/;"	v
+p	.\ilm_tests.py	/^p = 0.6 # rent exponent$/;"	v
+plt	.\ilm_comparison.py	/^import matplotlib.pyplot as plt$/;"	i
+plt	.\ilm_support_functions.py	/^import matplotlib.pyplot as plt$/;"	i
+plt	.\ilm_support_functions_old.py	/^import matplotlib.pyplot as plt$/;"	i
+plt	.\ilm_tests.py	/^import matplotlib.pyplot as plt$/;"	i
+pylab	.\ilm_comparison.py	/^import pylab$/;"	i
+pylab	.\ilm_tests.py	/^import pylab$/;"	i
+r	.\ilm_comparison.py	/^r = 1e2 # strata to gate pitch ratio$/;"	v
+r	.\ilm_tests.py	/^r = 1e2 # strata to gate pitch ratio$/;"	v
+rect	.\ilm_support_functions.py	/^def rect(b):$/;"	f
+rect	.\ilm_support_functions_old.py	/^def rect(b):$/;"	f
+sp	.\ilm_support_functions.py	/^import scipy as sp$/;"	i
+sp	.\ilm_support_functions_old.py	/^import scipy as sp$/;"	i
+sp	.\ilm_tests.py	/^import scipy as sp$/;"	i
+t	.\ilm_tests.py	/^t = 1\/2*(T-w)$/;"	v
+term2	.\ilm_tests.py	/^term2 = np.zeros(len(lengths))$/;"	v
+term3	.\ilm_tests.py	/^term3 = np.zeros(len(lengths))$/;"	v
+time	.\ilm_comparison.py	/^import time$/;"	i
+time	.\ilm_tests.py	/^import time$/;"	i
+time_ge	.\ilm_tests.py	/^time_ge = time.clock()$/;"	v
+time_gs	.\ilm_tests.py	/^time_gs = time.clock()$/;"	v
+time_gt	.\ilm_tests.py	/^time_gt = time_he-time_hs$/;"	v
+time_hconv_e	.\ilm_tests.py	/^time_hconv_e = time.clock()$/;"	v
+time_hconv_s	.\ilm_tests.py	/^time_hconv_s = time.clock()$/;"	v
+time_hconv_t	.\ilm_tests.py	/^time_hconv_t = time_hconv_e - time_hconv_s$/;"	v
+time_he	.\ilm_tests.py	/^time_he = time.clock()$/;"	v
+time_hs	.\ilm_tests.py	/^time_hs = time.clock()$/;"	v
+time_ht	.\ilm_tests.py	/^time_ht = time_he-time_hs$/;"	v
+time_huge_e	.\ilm_tests.py	/^time_huge_e = time.clock()$/;"	v
+time_huge_s	.\ilm_tests.py	/^time_huge_s = time.clock()$/;"	v
+time_huge_t	.\ilm_tests.py	/^time_huge_t = time_huge_e - time_huge_s$/;"	v
+time_start_c	.\ilm_comparison.py	/^time_start_c = time.clock()$/;"	v
+time_start_c	.\ilm_tests.py	/^time_start_c = time.clock()$/;"	v
+time_start_t	.\ilm_comparison.py	/^time_start_t = time.time()$/;"	v
+time_start_t	.\ilm_tests.py	/^time_start_t = time.time()$/;"	v
+use_corrected	.\ilm_comparison.py	/^use_corrected = 0$/;"	v
+use_corrected	.\ilm_comparison.py	/^use_corrected = 1$/;"	v
+w	.\ilm_comparison.py	/^w = 100$/;"	v
+w	.\ilm_tests.py	/^w = 100$/;"	v
