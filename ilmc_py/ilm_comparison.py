@@ -7,7 +7,7 @@ import ilm_support_functions as ilms
 
 import time
 
-output_data_filename = "pydata.dat"
+output_data_filename = "Data/pydata.dat"
 time_start_c = time.clock()
 time_start_t = time.time()
 
@@ -52,21 +52,21 @@ pl.hold(True)
 pl.loglog(l_corr,Iidf_corr,'r-')
 pl.xlabel('length (gates)')
 pl.ylabel('I_{idf} (interconnect density)')
-pl.savefig('Iidf_comparison.pdf')
+pl.savefig('Figures/Iidf_comparison.pdf')
 
 pl.figure(2)
 pl.clf()
 pl.loglog(l_corr,err_Iidf,'b-')
 pl.xlabel('length (gates)')
 pl.ylabel('Raw error (gates)')
-pl.savefig('Iidf_error.pdf')
+pl.savefig('Figures/Iidf_error.pdf')
 
 pl.figure(3)
 pl.clf()
 pl.loglog(l_corr,norm_err_Iidf,'b-')
 pl.xlabel('length (gates)')
 pl.ylabel('Normalized error (gates)')
-pl.savefig('Iidf_norm_error.pdf')
+pl.savefig('Figures/Iidf_norm_error.pdf')
 
 pl.figure(4)
 pl.clf()
@@ -76,7 +76,7 @@ pl.loglog(l_corr,Mt_corr,'r-')
 pl.xlabel('length (gates)')
 pl.ylabel('Number of gates')
 pl.title('Mt comparison')
-pl.savefig('Mt.pdf')
+pl.savefig('Figures/Mt.pdf')
 
 time_end_c = time.clock()
 time_end_t = time.time()
