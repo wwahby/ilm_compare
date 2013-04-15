@@ -45,7 +45,7 @@ if(use_corrected == 1)
     
     if (exist('DEBUG','var') == 1)
         if(DEBUG == 1) % debug is a global variable
-            str = sprintf('%s::\tNs: %d\tNsc: %d\tNx: %d\tNxc: %d',fname,Ns,Nsc,Nx,Nxc);
+            str = sprintf('%s::\tNs: %d\tNsc: %d',fname,lmax_2d,lmax_3d,lmax);
             disp(str);
         end
     end

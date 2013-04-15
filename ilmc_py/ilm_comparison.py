@@ -43,6 +43,7 @@ err_Iidf = np.append(Iidf, np.zeros(length_diff) )
 err_Iidf = abs(Iidf_corr - err_Iidf)
 norm_err_Iidf = err_Iidf/Iidf_corr
 
+print("len(Iidf_corr): " + str(len(Iidf_corr)) + "\tlen(Iidf): " + str(len(Iidf)) )
 
 ## Plots
 pl.figure(1)

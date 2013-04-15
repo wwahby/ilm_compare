@@ -2,7 +2,7 @@
 clear all
 close all
 clc
- 
+
 tic % start timing!
 Ng = 1e9; % number of gates
 N_strata = 2;
@@ -29,7 +29,12 @@ use_corrected = 0;
 [Iidf Mt Iexp l T t Ns Nx N_tsv_gates N_tsvs_1d Nc Nb N_nst N_nsb ] = compare_calculations(use_corrected, Ng, N_strata,r,p,fo,alpha,k,max_area_ratio,w);
 lmax = 2*sqrt(Ng);
 
-err_Iidf = abs(Iidf_corr - Iidf);
+
+% Stretch Iidf to compare it directly agaisnt Iidf_corr
+
+ldiff = length(Iidf_corr) - length(Iidf);
+Iidf2 = [Iidf zeros(1,ldiff)];
+err_Iidf = abs(Iidf_corr - Iidf2);
 norm_err_Iidf = err_Iidf./Iidf_corr;
 
 toc % stop timing!
@@ -39,7 +44,7 @@ figure(1)
 clf
 loglog(l,Iidf,'b-')
 hold on
-loglog(l,Iidf_corr,'r-')
+loglog(l_corr,Iidf_corr,'r-')
 xlabel('length (gates)')
 ylabel('I_{idf} (interconnect density)')
 title_string = sprintf('Interconnect density, %.1e gates, TSV area = %.2d%%, %d strata',Ng,max_area_ratio*100,N_strata);
@@ -48,7 +53,7 @@ legend('3D Joyner','3D Corrected')
 
 figure(2)
 clf
-loglog(l,err_Iidf)
+loglog(l_corr,err_Iidf)
 ylim([1e-2 10*max(err_Iidf)])
 xlabel('length')
 ylabel('Difference in I_{idf} (interconnects)')
@@ -59,7 +64,7 @@ figure(3)
 clf
 loglog(l,Mt,'b-')
 hold on
-loglog(l,Mt_corr,'r-')
+loglog(l_corr,Mt_corr,'r-')
 title_string = sprintf('M_t, %.1e gates, TSV area = %.2d%%, %d strata',Ng,max_area_ratio*100,N_strata);
 title(title_string)
 legend('Location','South','3D Joyner','3D Corrected')
@@ -68,7 +73,7 @@ figure(4)
 clf
 loglog(l,Iidf,'b-')
 hold on
-loglog(l,Iidf_corr,'r-')
+loglog(l_corr,Iidf_corr,'r-')
 axis([1 l(end) 1 10*max(Iidf)])
 xlabel('length (gates)')
 ylabel('I_{idf} (interconnect density)')
@@ -78,7 +83,7 @@ legend('3D Joyner','3D Corrected')
 
 figure(5)
 clf
-loglog(l,norm_err_Iidf)
+loglog(l_corr,norm_err_Iidf)
 ylim([1e-5 1e0])
 xlabel('length')
 ylabel('Normalized difference in I_{idf} (interconnects)')
@@ -127,3 +132,5 @@ legend('corr','uncorr')
 xlabel('length (gates)')
 ylabel('Raw error (IDF)')
 title('Error comparison - Matlab vs Python')
+
+fixfigs(1:8,3,14,12)

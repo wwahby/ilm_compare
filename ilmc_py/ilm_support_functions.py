@@ -118,6 +118,7 @@ def calc_Mtcorr_newcalc(Nt,Nx,t,w,T,Ntsvs_1d):
 #Mt = f3d*Nt**2/2
 #Mt(1) = Mt(1)*2
 
+	print("calc_Mtcorr_newcalc:: len(Mt): " + str(len(Mt)) + "\tlmax: " + str(lmax) + "\tNtsvs: " + str(Ntsvs))
 	return Mt
 
 
@@ -151,6 +152,7 @@ def compare_calculations(use_corrected, Ng, N_strata,r,p,fo,alpha,k,max_area_rat
 		lmax = int(lmax_3d)
 
 		Mt_intra = calc_Mtcorr_newcalc(Nsc,Nxc,t,w,T,N_tsvs_1d)
+		print("\n\nMT_intra (corrected):: Ns: " + str(Ns) + "\tNsc: " + str(Nsc) + "\tNxc: " + str(Nxc) + "\tlmax2d: " + str(lmax_2d) + "\n\n")
 	else:		
 		Nxc = Nx
 		Nsc = Ns
@@ -160,6 +162,8 @@ def compare_calculations(use_corrected, Ng, N_strata,r,p,fo,alpha,k,max_area_rat
 		lmax = int(lmax_3d)
 
 		Mt_intra = getMt_intra_vec(Ns,lmax_2d)
+
+		print("\n\nMT_intra (uncorrected):: Ns: " + str(Ns) + "\tNsc: " + str(Nsc) + "\tNxc: " + str(Nxc) + "\tlmax2d: " + str(lmax_2d) + "\n\n")
 	
 	lengths = range(lmax+1)
 
@@ -409,7 +413,7 @@ def getN_nonstart_top_vec(Ns,lmax):
 	Ns_top[0:l1_ind+1] = l1
 	Ns_top[l1_ind+1:l2_ind+1] = l2 + (l2 -math.sqrt(Ns)/2 -1)*(l2 -math.sqrt(Ns)/2)
 	Ns_top[l2_ind+1:l3_ind+1] =  l3*math.sqrt(Ns) - 3*Ns/4 + math.sqrt(Ns)/2
-	Ns_top[l3_ind+1:] = N_nonstart_top = Ns - (2*math.sqrt(Ns)-l4)*(2*math.sqrt(Ns)-l4-1)
+	Ns_top[l3_ind+1:] = Ns - (2*math.sqrt(Ns)-l4)*(2*math.sqrt(Ns)-l4-1)
 
 	return Ns_top
 
