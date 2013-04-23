@@ -2,10 +2,8 @@ function Mt = getMt_vec(Ns,lmax,r,S,Mt_intra)
 
 Mt = zeros(1,lmax+1);
 
-lmax_2d = lmax;
+%lmax_2d = lmax;
 lmax_2d = length(Mt_intra)-1;
-
-mt_intra_size = size(Mt_intra)
 
 for vind = 1:S
     v = vind-1;

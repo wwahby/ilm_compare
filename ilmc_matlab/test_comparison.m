@@ -1,3 +1,5 @@
+% Vectorized version
+
 % test stuff
 clear all
 close all
@@ -16,7 +18,7 @@ fo = 4; % avg fanout
 alpha = fo/(fo+1); % input terminal fraction
 k = 3/alpha;
 
-max_area_ratio = 0.10; % ratio of total TSV area to chip area
+max_area_ratio = 0.01; % ratio of total TSV area to chip area
 
 
 use_corrected = 1;
