@@ -1,0 +1,22 @@
+function N_nonstart_top = getN_nonstart_top(Ns, l)
+
+E = 0;
+
+selA = (l<= sqrt(Ns)/2);
+selB = (sqrt(Ns)/2 < l) & (l <= sqrt(Ns) );
+selC = (sqrt(Ns) < l) & (l <= 3*sqrt(Ns)/2);
+selD = (3*sqrt(Ns)/2 < l) & (l < 2*sqrt(Ns) ); % Think J has a typo here. 2sqrt(Ns)?
+
+A = selA .* l;
+B = selB .*( l.*(l -sqrt(Ns)/2 -1).*(l -sqrt(Ns)/2) );
+C = selC .*( l*sqrt(Ns) - 3*Ns/4 + sqrt(Ns)/2 );
+D = selD .*( Ns - 2*(sqrt(Ns)-l).*(2*sqrt(Ns)-l-1) );
+
+N_nonstart_top = A + B + C + D + E;
+
+if (l<= sqrt(Ns)/2)
+    N_nonstart_top = l;
+elseif (sqrt(Ns)/2 < l) && (l <= sqrt(Ns) )
+    N_nonstart_top = l.*(l -sqrt(Ns)/2 -1).*(l -sqrt(Ns)/2);
+elseif (sqrt(Ns) < l) & (l <= 3*sqrt(Ns)/2)
+    
