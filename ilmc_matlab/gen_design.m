@@ -16,14 +16,16 @@ alpha_t = chip.delay_constant;
 a = chip.logic_activity_factor;
 Vdd = chip.Vdd;
 
+gate_pitch = chip.gate_pitch;
+
 w_trans = transistor.gate_length;
 eps_ox = transistor.oxide_rel_permittivity;
 tox = transistor.oxide_thickness;
-
 Ioff = transistor.leakage_current_per_micron;
+
 Ro = gate.output_resistance;
 N_trans_per_gate = gate.num_transistors;
-gate_pitch = gate.pitch;
+
 
 use_joyner = simulation.use_joyner;
 redo_wiring = simulation.redo_wiring_after_repeaters;
@@ -35,6 +37,8 @@ h_tsv_m = tsv.height;
 rho_m = wire.resistivity;
 epsr_d = wire.dielectric_epsr;
 
+%% Update some objects where necessary
+wire.layer_area = chip.area_total/chip.num_layers;
 
 %% Presize the chip and TSVs
 Ns = Ng/S;
@@ -91,11 +95,21 @@ iidf(isnan(iidf)) = 0;
 lmax = length(iidf) - 1;
 l = 0:lmax;
 
+chip.iidf = iidf;
+chip.lengths = l;
+
 %% Determine wire pitch and layer assignment
 
 Ach_wla = Ach_tier_gp; % Reduce the chip area by a factor of S when we're folding a design across S layers
-[Ln pn pn_orig Nm] = wire_layer_assignment_alt(iidf,lmax,Ach_wla,chi,rho_m,epsr_d,Tclk,alpha_t);
-[Cxc Ltot Cn] = calc_total_wiring_capacitance2(pn,Ln,Nm,iidf,epsr_d,gate_pitch);
+%[Ln pn pn_orig Nm] = wire_layer_assignment_alt(iidf,lmax,Ach_wla,chi,rho_m,epsr_d,Tclk,alpha_t);
+%[Cxc Ltot Cn] = calc_total_wiring_capacitance2(pn,Ln,Nm,iidf,epsr_d,gate_pitch);
+
+%[Ln_vec pn_vec pn_orig_vec A_wires A_vias] = wla_improved(iidf,gate_pitch,min_pitch,layers_per_tier,routing_efficiency,layer_area,rho_m_vec,epsr_d,alpha_t,Beta,Tclk,Rc);
+wire = wla_improved(chip,wire);
+[Cxc Cn] = calc_wiring_capacitance_from_area(wire);
+[Cxc2 Cn2] = calc_wiring_capacitance_from_area_old(wire.pn,wire.layers_per_tier,wire.wire_area,wire.via_area,wire.dielectric_epsr);
+wire.capacitance_tot = Cxc;
+wire.capacitance_per_layer = Cn;
 
 %% Power estimates
 
@@ -117,8 +131,12 @@ Pw = 1/2*a*Cxc*Vdd^2*f;
 Ach_ri = Ach_tier_m2;
 Ainv_min = gate_pitch^2*9; % assume 3:1 W/L for nmos, 3x that for pmos
 rho_xcn = rho_m;
-
 Co = N_trans_per_gate*Cox;
+
+pn = wire.pn;
+Ln = wire.Ln;
+
+%[iidf_rep h_vec k_vec Arep_used num_vec size_vec] = repeater_insertion(iidf,Ach_ri,Ainv_min,wire.pn,wire.Ln,Cn,rho_xcn,Ro,Co,gate_pitch);
 [iidf_rep h_vec k_vec Arep_used num_vec size_vec] = repeater_insertion(iidf,Ach_ri,Ainv_min,pn,Ln,Cn,rho_xcn,Ro,Co,gate_pitch);
 
 Co_rep = Cox*size_vec;

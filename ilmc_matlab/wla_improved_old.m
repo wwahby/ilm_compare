@@ -1,4 +1,4 @@
-function wire = wla_improved(chip,wire)
+function [Ln_vec pn_vec pn_orig_vec A_wires A_vias] = wla_improved_old(Iidf,gate_pitch,min_pitch,layers_per_tier,routing_efficiency,layer_area,rho_m,epsr_d,alpha_t,Beta,Tclk,Rc)
 % Simple wire layer assignment algorithm, including via blockage
 % Assign wires to layers to satisfy timing and areal constraints as
 % described by Venkatesan (see Joyner thesis)
@@ -37,27 +37,11 @@ function wire = wla_improved(chip,wire)
 %          Like rho_m, you can input a vector to have different Rc's for
 %          different tiers
 
-%% Unpack inputs from input object
-Iidf = chip.iidf;
-gate_pitch = chip.gate_pitch;
-min_pitch = chip.min_pitch;
-layers_per_tier = wire.layers_per_tier;
-routing_efficiency = wire.routing_efficiency;
-layer_area = wire.layer_area;
-rho_m = wire.resistivity;
-epsr_d = wire.dielectric_epsr;
-alpha_t = wire.delay_constant;
-Beta = wire.Beta;
-Tclk = chip.clock_period;
-Rc = wire.Rc;
-
-
-
 chi = 2/3; % conversion factor -- converts between point-to-point wirelength and total net length
 eps0 = 8.854e-12;
 eps_d = epsr_d * eps0;
 
-l = chip.lengths;
+l = 0:length(Iidf)-1;
 Iidf = round(Iidf); % rounding this because it's nonsensical to route 0.32 of a wire
 LIDF = l.*Iidf;
 lmax = find(Iidf,1,'last'); % find last length for which we have more than zero wires
@@ -131,15 +115,6 @@ while ((Ln < lmax-1) && (Ln > 0))
     end
 
 end
-
-
-%% Pack outputs
-wire.Ln = Ln_vec;
-wire.pn = pn_vec;
-wire.pn_orig = pn_orig_vec;
-wire.wire_area = A_wires;
-wire.via_area = A_vias;
-
 
 
 

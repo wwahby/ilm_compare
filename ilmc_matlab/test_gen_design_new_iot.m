@@ -52,11 +52,12 @@ chip.alpha = alpha;
 chip.rent_k = k;
 chip.rent_p = p;
 chip.num_layers = 1;
+chip.min_pitch = 2*w_trans;
+chip.gate_pitch = gate_pitch;
 
 chip.area_total = Ach_m2;
 chip.chi = chi;
 chip.clock_period = Tclk;
-chip.delay_constant = alpha_t;
 chip.logic_activity_factor = a;
 chip.Vdd = Vdd;
 
@@ -67,14 +68,19 @@ transistor.leakage_current_per_micron = Ioff;
 
 gate.output_resistance = Ro;
 gate.num_transistors = N_trans_per_gate;
-gate.pitch = gate_pitch;
+%gate.pitch = gate_pitch;
 
 tsv.aspect_ratio = AR_tsv;
 tsv.max_area_fraction = Atf_max;
 tsv.height = h_tsv_m_thin;
 
+wire.delay_constant = alpha_t;
 wire.resistivity = rho_m;
 wire.dielectric_epsr = epsr_d;
+wire.layers_per_tier = 2;
+wire.routing_efficiency = 0.4;
+wire.Beta = [0.25 0.5 0.9];
+wire.Rc = 0;
 
 simulation.use_joyner = use_joyner;
 simulation.redo_wiring_after_repeaters = redo_wiring;

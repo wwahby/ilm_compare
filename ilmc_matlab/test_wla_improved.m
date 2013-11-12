@@ -98,7 +98,7 @@ epsr_d = 3.0; % Low-k dielectric
 Tclk = 1/fmax; % (s)
 alpha_t = 1.1*6.2;
 
-min_pitch = 30e-9;
+min_pitch = 60e-9;
 %min_pitch = gate_pitch;
 Ach = Ach_m2; % Force chip to use specified area 
 Ach_gp = Ach_m2/gate_pitch^2;

@@ -1,4 +1,4 @@
-function [Ctot Cn] = calc_wiring_capacitance_from_area(wire)
+function [Ctot Cn] = calc_wiring_capacitance_from_area(pn,layers_per_tier,Awn,Avn,epsrd)
 % Calculates total capacitance and capacitance per tier for a wiring
 % network, using wiring area per tier as input
 % pn - wiring pitch (m) - 1xn vector
@@ -7,15 +7,6 @@ function [Ctot Cn] = calc_wiring_capacitance_from_area(wire)
 %                               includes whitespace because w_wire = pn/2
 % Avn - via area on tier n (m^2) Calculated same way as Awn
 % epsrd - relative dielectric permittivity of interlayer dielectric
-
-%% Unpack inputs
-pn = wire.pn;
-layers_per_tier = wire.layers_per_tier;
-Awn = wire.wire_area;
-Avn = wire.via_area;
-epsrd = wire.dielectric_epsr;
-
-%%
 
 % Calculate permittivity of interlayer dielectric
 eps0 = 8.854e-12; % (F/m)
