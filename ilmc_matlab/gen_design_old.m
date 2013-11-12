@@ -1,40 +1,4 @@
-%function [iidf l Ln pn pn_orig Cxc Ltot Cn Pdyn Plk Pw Prep Ng_act N_tsvs iidf_rewire] = gen_design(chip,tsv,gate,transistor,wire)
-function [chip power wire repeater] = gen_design(chip,tsv,gate,transistor,wire,simulation)
-
-%% Unpack inputs from objects
-Ng = chip.num_gates;
-alpha = chip.alpha;
-k = chip.rent_k;
-p = chip.rent_p;
-S = chip.num_layers;
-
-
-Ach_m2 = chip.area_total;
-chi = chip.chi;
-Tclk = chip.clock_period;
-alpha_t = chip.delay_constant;
-a = chip.logic_activity_factor;
-Vdd = chip.Vdd;
-
-w_trans = transistor.gate_length;
-eps_ox = transistor.oxide_rel_permittivity;
-tox = transistor.oxide_thickness;
-
-Ioff = transistor.leakage_current_per_micron;
-Ro = gate.output_resistance;
-N_trans_per_gate = gate.num_transistors;
-gate_pitch = gate.pitch;
-
-use_joyner = simulation.use_joyner;
-redo_wiring = simulation.redo_wiring_after_repeaters;
-
-AR_tsv = tsv.aspect_ratio;
-Atf_max = tsv.max_area_fraction;
-h_tsv_m = tsv.height;
-
-rho_m = wire.resistivity;
-epsr_d = wire.dielectric_epsr;
-
+function [iidf l Ln pn pn_orig Cxc Ltot Cn Pdyn Plk Pw Prep Ng_act N_tsvs iidf_rewire] = gen_design(Ng,alpha,k,p,S,h_tsv_m,Atf_max,AR_tsv,Ach_m2,chi,rho_m,epsr_d,Tclk,alpha_t,gate_pitch,w_trans,eps_ox,tox,N_trans_per_gate,a,Ioff,Vdd,Ro,use_joyner,redo_wiring)
 
 %% Presize the chip and TSVs
 Ns = Ng/S;
@@ -143,29 +107,4 @@ if(redo_wiring == 1)
 else
     iidf_rewire = 0;
 end
-
-%% update output objects
-chip.iidf = iidf;
-chip.iidf_rewire = iidf_rewire;
-chip.lengths = l;
-
-wire.pitch = pn;
-wire.longest_per_tier = Ln;
-wire.pitch_vec_orig = pn_orig;
-wire.capacitance_total = Cxc;
-wire.length_total = Ltot;
-wire.capacitance_per_tier = Cn;
-
-repeater.size_vs_minv = h_vec;
-repeater.num_per_xc = k_vec;
-repeater.area_total = Arep_used_mm2;
-repeater.number_per_tier = num_vec;
-repeater.size_per_tier = size_vec;
-repeater.iidf = iidf_rep;
-
-power.dynamic = Pdyn;
-power.leakage = Plk;
-power.wiring = Pw;
-power.repeater = Prep;
-
 

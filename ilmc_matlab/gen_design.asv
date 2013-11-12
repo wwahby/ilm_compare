@@ -1,5 +1,5 @@
 %function [iidf l Ln pn pn_orig Cxc Ltot Cn Pdyn Plk Pw Prep Ng_act N_tsvs iidf_rewire] = gen_design(chip,tsv,gate,transistor,wire)
-function [chip power wire repeater] = gen_design(chip,tsv,gate,transistor,wire,simulation)
+function [chip wire power] = gen_design(chip,tsv,gate,transistor,wire)
 
 %% Unpack inputs from objects
 Ng = chip.num_gates;
@@ -20,13 +20,14 @@ w_trans = transistor.gate_length;
 eps_ox = transistor.oxide_rel_permittivity;
 tox = transistor.oxide_thickness;
 
-Ioff = transistor.leakage_current_per_micron;
+Ioff = transistor.leakage_current_per_length;
 Ro = gate.output_resistance;
 N_trans_per_gate = gate.num_transistors;
 gate_pitch = gate.pitch;
 
 use_joyner = simulation.use_joyner;
 redo_wiring = simulation.redo_wiring_after_repeaters;
+
 
 AR_tsv = tsv.aspect_ratio;
 Atf_max = tsv.max_area_fraction;
@@ -156,12 +157,11 @@ wire.capacitance_total = Cxc;
 wire.length_total = Ltot;
 wire.capacitance_per_tier = Cn;
 
-repeater.size_vs_minv = h_vec;
-repeater.num_per_xc = k_vec;
-repeater.area_total = Arep_used_mm2;
-repeater.number_per_tier = num_vec;
-repeater.size_per_tier = size_vec;
-repeater.iidf = iidf_rep;
+%iidf_rep h_vec k_vec Arep_used num_vec size_vec
+repeater.size = num_vec;
+repeater.number = size_vec;
+repeater.area_total = Arep_used;
+repeater.number_per_tier = size_vec;
 
 power.dynamic = Pdyn;
 power.leakage = Plk;
