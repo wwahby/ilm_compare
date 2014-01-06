@@ -1,16 +1,10 @@
-function C_l = get_capacitance_from_length(l,chip,wire)
+function C_l = get_capacitance_from_length_old(l,Ln_vec,pn_vec,epsr_d,gate_pitch)
 % gets capacitance for a wire of length l
 % l (gate pitches) length of wire to find capacitance for
 % Ln_vec (GP) 1xn vector of longest wire routed in each wiring tier
 % pn_vec (m) 1xn vector of wiring pitch on each wiring tier
 % epsr_d (-) dielectric constant of interlayer dielectric
 % gate_pitch (m) how far gates are spaced from one another
-
-%% unpack inputs
-Ln_vec = wire.Ln;
-pn_vec = wire.pn;
-epsr_d = wire.dielectric_epsr;
-gate_pitch = chip.gate_pitch;
 
 % get dielectric permittivity
 eps0 = 8.854e-12; % (F/m) vacuum permittivity

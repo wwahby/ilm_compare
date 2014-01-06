@@ -12,7 +12,6 @@ S = chip.num_layers;
 Ach_m2 = chip.area_total;
 chi = chip.chi;
 Tclk = chip.clock_period;
-alpha_t = chip.delay_constant;
 a = chip.logic_activity_factor;
 Vdd = chip.Vdd;
 
@@ -34,6 +33,7 @@ AR_tsv = tsv.aspect_ratio;
 Atf_max = tsv.max_area_fraction;
 h_tsv_m = tsv.height;
 
+alpha_t = wire.delay_constant;
 rho_m = wire.resistivity;
 epsr_d = wire.dielectric_epsr;
 
@@ -99,17 +99,11 @@ chip.iidf = iidf;
 chip.lengths = l;
 
 %% Determine wire pitch and layer assignment
-
-Ach_wla = Ach_tier_gp; % Reduce the chip area by a factor of S when we're folding a design across S layers
-%[Ln pn pn_orig Nm] = wire_layer_assignment_alt(iidf,lmax,Ach_wla,chi,rho_m,epsr_d,Tclk,alpha_t);
-%[Cxc Ltot Cn] = calc_total_wiring_capacitance2(pn,Ln,Nm,iidf,epsr_d,gate_pitch);
-
-%[Ln_vec pn_vec pn_orig_vec A_wires A_vias] = wla_improved(iidf,gate_pitch,min_pitch,layers_per_tier,routing_efficiency,layer_area,rho_m_vec,epsr_d,alpha_t,Beta,Tclk,Rc);
 wire = wla_improved(chip,wire);
 [Cxc Cn] = calc_wiring_capacitance_from_area(wire);
-[Cxc2 Cn2] = calc_wiring_capacitance_from_area_old(wire.pn,wire.layers_per_tier,wire.wire_area,wire.via_area,wire.dielectric_epsr);
-wire.capacitance_tot = Cxc;
-wire.capacitance_per_layer = Cn;
+
+wire.capacitance_total = Cxc;
+wire.capacitance_per_tier = Cn;
 
 %% Power estimates
 
@@ -128,16 +122,12 @@ Pw = 1/2*a*Cxc*Vdd^2*f;
 
 %% Repeater insertion
 
-Ach_ri = Ach_tier_m2;
-Ainv_min = gate_pitch^2*9; % assume 3:1 W/L for nmos, 3x that for pmos
-rho_xcn = rho_m;
-Co = N_trans_per_gate*Cox;
+%Ach_ri = Ach_tier_m2;
+%Ainv_min = gate_pitch^2*9; % assume 3:1 W/L for nmos, 3x that for pmos
+%rho_xcn = rho_m;
+%Co = N_trans_per_gate*Cox;
 
-pn = wire.pn;
-Ln = wire.Ln;
-
-%[iidf_rep h_vec k_vec Arep_used num_vec size_vec] = repeater_insertion(iidf,Ach_ri,Ainv_min,wire.pn,wire.Ln,Cn,rho_xcn,Ro,Co,gate_pitch);
-[iidf_rep h_vec k_vec Arep_used num_vec size_vec] = repeater_insertion(iidf,Ach_ri,Ainv_min,pn,Ln,Cn,rho_xcn,Ro,Co,gate_pitch);
+[iidf_rep h_vec k_vec Arep_used num_vec size_vec] = repeater_insertion(chip,gate,transistor,wire);
 
 Co_rep = Cox*size_vec;
 Ilk_rep = Ilk*size_vec;
@@ -154,8 +144,15 @@ Arep_used_mm2 = Arep_used*(1e3)^2;
 %% Redo wiring now that we've changed Iidf
 if(redo_wiring == 1)
     iidf_rewire = [0 iidf_rep]; % add zero-length value back in
-    [Ln pn pn_orig Nm] = wire_layer_assignment_alt(iidf_rewire,lmax,Ach_wla,chi,rho_m,epsr_d,Tclk,alpha_t);
-    [Cxc Ltot Cn] = calc_total_wiring_capacitance2(pn,Ln,Nm,iidf_rewire,epsr_d,gate_pitch);
+    wire = wla_improved(chip,wire);
+    [Cxc Cn] = calc_wiring_capacitance_from_area(wire);
+    
+    wire.pitch = pn;
+    wire.Ln = Ln;
+    wire.pn = pn_orig;
+    wire.capacitance_total = Cxc;
+    wire.length_total = Ltot;
+    wire.capacitance_per_tier = Cn;
 
     Pw = 1/2*a*Cxc*Vdd^2*f;
 else
@@ -166,13 +163,6 @@ end
 chip.iidf = iidf;
 chip.iidf_rewire = iidf_rewire;
 chip.lengths = l;
-
-wire.pitch = pn;
-wire.longest_per_tier = Ln;
-wire.pitch_vec_orig = pn_orig;
-wire.capacitance_total = Cxc;
-wire.length_total = Ltot;
-wire.capacitance_per_tier = Cn;
 
 repeater.size_vs_minv = h_vec;
 repeater.num_per_xc = k_vec;

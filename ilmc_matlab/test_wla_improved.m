@@ -115,7 +115,7 @@ Rc = 0;
 rho_m_vec = [1 1 1] * rho_m;
 %rho_m_vec = rho_m;
 
-[Ln_vec pn_vec pn_orig_vec A_wires A_vias] = wla_improved(iidf_2d,gate_pitch,min_pitch,layers_per_tier,routing_efficiency,layer_area,rho_m_vec,epsr_d,alpha_t,Beta,Tclk,Rc);
+[Ln_vec pn_vec pn_orig_vec A_wires A_vias] = wla_improved_old(iidf_2d,gate_pitch,min_pitch,layers_per_tier,routing_efficiency,layer_area,rho_m_vec,epsr_d,alpha_t,Beta,Tclk,Rc);
 [Ln2d pn2d pn2d_orig] = wire_layer_assignment_alt(iidf_2d,lmax_2d,Ach_gp,chi,rho_m,epsr_d,Tclk,alpha_t);
 [Ln2dm pn2dm pn2d_origm] = wire_layer_assignment_alt(iidf_2d,lmax_2d,Ach_mp,chi,rho_m,epsr_d,Tclk,alpha_t);
 
@@ -126,7 +126,7 @@ rho_m_vec = [1 1 1] * rho_m;
 [Cxc2d Ltot2d Cn2d] = calc_total_wiring_capacitance(pn2d,Ln2d,iidf_2d,l2d,epsr_d,gate_pitch);
 [Cxc2dm Ltot2dm Cn2dm] = calc_total_wiring_capacitance(pn2dm,Ln2dm,iidf_2d,l2d,epsr_d,gate_pitch);
 [Cxc Ltot Cno] = calc_total_wiring_capacitance(pn_vec,Ln_vec,iidf_2d,l2d,epsr_d,gate_pitch);
-[Ctot Cnn] = calc_wiring_capacitance_from_area(pn_vec,layers_per_tier,A_wires,A_vias,epsr_d);
+[Ctot Cnn] = calc_wiring_capacitance_from_area_old(pn_vec,layers_per_tier,A_wires,A_vias,epsr_d);
 
 %% Size gates and see how far off we were
 Vt = 0.2;
@@ -147,7 +147,7 @@ Rnand = calc_Rnand(Vdd,Vt,epsr_ox,t_ox,mobility_av);
 Cnand = calc_Cnand(L_gate_min,epsr_ox,t_ox);
 
 l_av = get_average_wirelength(iidf_2d);
-C_av = get_capacitance_from_length(l_av,Ln_vec,pn_vec,epsr_d,gate_pitch);
+C_av = get_capacitance_from_length_old(l_av,Ln_vec,pn_vec,epsr_d,gate_pitch);
 [W gate_pitch_new] = size_gates_nand2(Wmin,Rnand,Cnand,100*C_av,fo,logic_depth,Tclk,Beta_g);
 
 

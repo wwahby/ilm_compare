@@ -1,4 +1,4 @@
-function [iidf l Ln pn pn_orig Cxc Ltot Cn Pdyn Plk Pw Prep Ng_act N_tsvs iidf_rewire] = gen_design(Ng,alpha,k,p,S,h_tsv_m,Atf_max,AR_tsv,Ach_m2,chi,rho_m,epsr_d,Tclk,alpha_t,gate_pitch,w_trans,eps_ox,tox,N_trans_per_gate,a,Ioff,Vdd,Ro,use_joyner,redo_wiring)
+function [iidf l Ln pn pn_orig Cxc Ltot Cn Pdyn Plk Pw Prep Ng_act N_tsvs iidf_rewire] = gen_design_old(Ng,alpha,k,p,S,h_tsv_m,Atf_max,AR_tsv,Ach_m2,chi,rho_m,epsr_d,Tclk,alpha_t,gate_pitch,w_trans,eps_ox,tox,N_trans_per_gate,a,Ioff,Vdd,Ro,use_joyner,redo_wiring)
 
 %% Presize the chip and TSVs
 Ns = Ng/S;
@@ -83,7 +83,14 @@ Ainv_min = gate_pitch^2*9; % assume 3:1 W/L for nmos, 3x that for pmos
 rho_xcn = rho_m;
 
 Co = N_trans_per_gate*Cox;
-[iidf_rep h_vec k_vec Arep_used num_vec size_vec] = repeater_insertion(iidf,Ach_ri,Ainv_min,pn,Ln,Cn,rho_xcn,Ro,Co,gate_pitch);
+
+% construct some objects for the repeater insertion routine
+wire.Ln = Ln;
+wire.pn = pn;
+wire.dielectric_epsr = epsr_d;
+chip.gate_pitch = gate_pitch;
+
+[iidf_rep h_vec k_vec Arep_used num_vec size_vec] = repeater_insertion_old_capfix(iidf,Ach_ri,Ainv_min,pn,Ln,Cn,rho_xcn,Ro,Co,gate_pitch,chip,wire);
 
 Co_rep = Cox*size_vec;
 Ilk_rep = Ilk*size_vec;

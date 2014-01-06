@@ -1,19 +1,6 @@
-%function [Iidf_rep h_vec k_vec Arep_used num_vec size_vec] = repeater_insertion(Iidf,Ach,Ainv_min,pn,Ln,Cn,rho_xcn,Ro_n,Co,w_gate)
-function [Iidf_rep h_vec k_vec Arep_used num_vec size_vec] = repeater_insertion(chip,gate,transistor,wire)
+function [Iidf_rep h_vec k_vec Arep_used num_vec size_vec] = repeater_insertion_old(Iidf,Ach,Ainv_min,pn,Ln,Cn,rho_xcn,Ro_n,Co,w_gate)
 %Ach (m^2)
 % Ainv_min (m^2)
-
-%% unpack inputs
-Iidf = chip.iidf;
-Ach = chip.area_total/chip.num_layers;
-Ainv_min = 9*chip.gate_pitch^2;
-pn = wire.pn;
-Ln = wire.Ln;
-%Cn = wire.Cn;
-rho_xcn = wire.resistivity;
-Ro_n = gate.output_resistance;
-Co = gate.capacitance;
-w_gate = transistor.gate_length;
 
 
 Iidf = round(Iidf); % let's just deal with integer numbers of interconnects
@@ -47,10 +34,11 @@ while (add_repeaters == 1)
     xc_tier = find(lmax_cur <= Ln,1,'first');
     rho_xc = get_nth_or_last(rho_xcn,xc_tier);
     Ro = get_nth_or_last(Ro_n,xc_tier);
-    
-    %Cxc = Cn(xc_tier)*lmax_cur*w_gate;
-    Cxc = get_capacitance_from_length(lmax_cur,chip,wire); %
-    Rxc = rho_xc*lmax_cur*w_gate/pn(xc_tier)^2; % pn has units [m]
+    Cxc = Cn(xc_tier)*lmax_cur*w_gate;
+    %Cxc = get_capacitance_from_length(lmax_cur,Ln,pn,epsr_d,gate_pitch) %
+    %[FIX] This needs to calculate the capacitance of a wire of this length
+    % need to change around inputs a bit to get this to work
+    Rxc = rho_xc*lmax_cur*w_gate/pn(xc_tier)^2/(w_gate^2);
     
     if(Rxc*Cxc >= 7*Ro*Co)
     % Make sure we actually get a benefit from inserting repeaters
