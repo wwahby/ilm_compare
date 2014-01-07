@@ -90,6 +90,7 @@ wire.Rc = 0;
 
 simulation.use_joyner = use_joyner;
 simulation.redo_wiring_after_repeaters = redo_wiring;
+simulation.do_topdown_wla = 1;
 
 
 %% Corrected distribution

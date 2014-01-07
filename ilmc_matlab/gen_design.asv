@@ -99,6 +99,10 @@ chip.lengths = l;
 
 %% Determine wire pitch and layer assignment
 wire = wla_improved(chip,wire);
+[Cxc Cn] = calc_wiring_capacitance_from_area(wire);
+
+wire.capacitance_total = Cxc;
+wire.capacitance_per_tier = Cn;
 
 %% Repeater insertion
 
@@ -109,19 +113,18 @@ wire = wla_improved(chip,wire);
 
 [iidf_rep h_vec k_vec Arep_used num_vec size_vec] = repeater_insertion(chip,gate,transistor,wire);
 
-
-%% Power estimates
-eps0 = 8.854e-12; % (F/m)
-Ilk = Ioff*(w_trans*1e6); % [FIX] very coarse leakage model -- update this with something better (incl temp, gate size, etc)
-
-Cox = eps_ox*eps0*w_trans^2/tox;
-Co = Cox; % Need to include parasitics for realistic estimate
 Co_rep = Cox*size_vec;
 Ilk_rep = Ilk*size_vec;
 
+%% Power estimates
+
+eps0 = 8.854e-12; % (F/m)
+
+Ilk = Ioff*(w_trans*1e6);
+
 Nt = N_trans_per_gate * Ng;
 f = 1/Tclk;
-Cxc = wire.capacitance_total;
+
 Pdyn = 1/2*a*Co*Vdd^2*f*Nt;
 Plk = (1-a)*Vdd*Ilk*Nt;
 Pw = 1/2*a*Cxc*Vdd^2*f;

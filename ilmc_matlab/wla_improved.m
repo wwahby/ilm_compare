@@ -135,6 +135,8 @@ while ((Ln < lmax-1) && (Ln > 0))
 
 end
 
+%% Calculate capacitance for each tier
+[Cxc Cn] = calc_wiring_capacitance_from_area(wire);
 
 %% Pack outputs
 wire.Ln = Ln_vec;
@@ -144,6 +146,8 @@ wire.wire_area = A_wires;
 wire.via_area = A_vias;
 wire.delay_actual = tau;
 wire.delay_max = tau_allowed;
+wire.capacitance_total = Cxc;
+wire.capacitance_per_tier = Cn;
 
 
 
