@@ -42,7 +42,7 @@ Iidf = chip.iidf;
 gate_pitch = chip.gate_pitch;
 min_pitch = chip.min_pitch;
 layers_per_tier = wire.layers_per_tier;
-routing_efficiency = wire.routing_efficiency;
+routing_efficiency_vec = wire.routing_efficiency;
 layer_area = wire.layer_area;
 rho_m = wire.resistivity;
 epsr_d = wire.dielectric_epsr;
@@ -80,10 +80,11 @@ while ((Ln < lmax-1) && (Ln > 0))
     Beta_n = get_nth_or_last(Beta,n);
     rho_m_n = get_nth_or_last(rho_m,n);
     Rc_n = get_nth_or_last(Rc,n);
+    routing_efficiency = get_nth_or_last(routing_efficiency_vec,n);
     
     pnf = @(Ln) sqrt( 4*alpha_t*rho_m_n*eps_d*(Ln*gate_pitch)^2 / (Beta_n*Tclk - alpha_t*Rc_n*eps_d*(Ln*gate_pitch)) );
     A_wires_n = @(Lm,Ln) chi*pnf(Ln)*gate_pitch*sum(LIDF(Lm+2:Ln+1)); % +2 and +1 in LIDF because we need the indices, not the actual lengths
-    A_vias_n = @(Ln) layers_per_tier * pnf(Ln)^2 * sum(Iidf(Ln+2:end)); % +2 in Iidf because we need the index, not the length
+    A_vias_n = @(Ln) layers_per_tier * (1.5*pnf(Ln))^2 * sum(Iidf(Ln+2:end)); % +2 in Iidf because we need the index, not the length, 1.5 because min via pitch design rule is usually 3*min size
     A_req_n = @(Lm,Ln) A_wires_n(Lm,Ln) + A_vias_n(Ln);
     
     LHSF = @(Ln) A_req_n(Lm,Ln);
@@ -126,6 +127,8 @@ while ((Ln < lmax-1) && (Ln > 0))
         Ln_vec(n) = Ln;
         A_wires(n) = A_wires_n(Lm,Ln);
         A_vias(n) = A_vias_n(Ln);
+        tau(n) =  4*alpha_t*rho_m_n*eps_d*(Ln*gate_pitch/pn)^2 + alpha_t*Rc_n*eps_d*(Ln*gate_pitch) ;
+        tau_allowed(n) = Beta_n*Tclk;
         n = n+1;
         Lm = Ln;
     end
@@ -139,6 +142,8 @@ wire.pn = pn_vec;
 wire.pn_orig = pn_orig_vec;
 wire.wire_area = A_wires;
 wire.via_area = A_vias;
+wire.delay_actual = tau;
+wire.delay_max = tau_allowed;
 
 
 

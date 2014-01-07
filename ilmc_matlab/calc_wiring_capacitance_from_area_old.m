@@ -1,4 +1,4 @@
-function [Ctot Cn] = calc_wiring_capacitance_from_area(pn,layers_per_tier,Awn,Avn,epsrd)
+function [Ctot Cn] = calc_wiring_capacitance_from_area_old(pn,layers_per_tier,Awn,Avn,epsrd)
 % Calculates total capacitance and capacitance per tier for a wiring
 % network, using wiring area per tier as input
 % pn - wiring pitch (m) - 1xn vector

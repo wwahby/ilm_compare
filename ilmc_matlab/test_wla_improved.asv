@@ -253,7 +253,7 @@ plot(wire_norep.pn/min_pitch,'m--')
 plot(wire_rep.pn/min_pitch,'k--')
 xlabel('Wiring tier')
 ylabel('Wire pitch (MP)')
-legend('Orig-GP','Orig-MP','Improved','newio-norep','newio-tdrep')
+legend('Orig-GP','Orig-MP','Improved','newio-norep','newio-td)
 fixfigs(1,3,14,12)
 
 
@@ -267,30 +267,28 @@ ylabel('Area fraction')
 legend('wires','vias')
 fixfigs(2,3,14,12)
 
-% figure(3)
-% clf
-% plot(Ln2d,'b')
-% hold on
-% plot(Ln2dm,'g--')
-% plot(Ln_vec,'r')
-% plot(wire_norep.Ln,'m--')
-% plot(wire_rep.Ln,'k--')
-% xlabel('Wiring tier')
-% ylabel('Longest wire routed per tier')
-% legend('Orig-GP','Orig-MP','Improved')
-% fixfigs(3,3,14,12)
+figure(3)
+clf
+plot(Ln2d,'b')
+hold on
+plot(Ln2dm,'g--')
+plot(Ln_vec,'r')
+xlabel('Wiring tier')
+ylabel('Longest wire routed per tier')
+legend('Orig-GP','Orig-MP','Improved')
+fixfigs(3,3,14,12)
 
-% figure(4)
-% clf
-% plot(Cn2d.*Ltot2d*gate_pitch/1e-9,'b')
-% hold on
-% plot(Cn2dm.*Ltot2dm*gate_pitch/1e-9,'g')
-% plot(Cno.*Ltot.*gate_pitch/1e-9,'m')
-% plot(Cnn/1e-9,'r')
-% xlabel('Wiring tier')
-% ylabel('Capacitance per tier (nF)')
-% legend('Orig-GP','Orig-MP','Improved-oldC','Improved-newC')
-% fixfigs(4,3,14,12)
+figure(4)
+clf
+plot(Cn2d.*Ltot2d*gate_pitch/1e-9,'b')
+hold on
+plot(Cn2dm.*Ltot2dm*gate_pitch/1e-9,'g')
+plot(Cno.*Ltot.*gate_pitch/1e-9,'m')
+plot(Cnn/1e-9,'r')
+xlabel('Wiring tier')
+ylabel('Capacitance per tier (nF)')
+legend('Orig-GP','Orig-MP','Improved-oldC','Improved-newC')
+fixfigs(4,3,14,12)
 
 figure(5)
 clf
@@ -298,8 +296,6 @@ plot(pn2d*gate_pitch/1e-9,'b')
 hold on
 plot(pn2dm*min_pitch/1e-9,'g--')
 plot(pn_vec/1e-9,'r')
-plot(wire_norep.pn/1e-9,'m--')
-plot(wire_rep.pn/1e-9,'k--')
 xlabel('Wiring tier')
 ylabel('Wire pitch (nm)')
 legend('Orig-GP','Orig-MP','Improved','Location','nw')
