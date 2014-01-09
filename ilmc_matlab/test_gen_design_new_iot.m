@@ -1,8 +1,5 @@
 clear all
 close all
-%% Model flags
-use_joyner = 0; % 0=Use corrected distribution, 1=use original joyner distribution
-redo_wiring = 0; % Redo wire layer assignment after repeater insertion? 0=no, 1=yes
 
 %% Stack parameters
 S = 1;
@@ -141,8 +138,8 @@ wire.repeater_fraction = [0.5 0.3]; % fraction of optimal repeaters to insert
 wire.Beta = [0.25 0.9];
 wire.Rc = 0;
 
-simulation.use_joyner = use_joyner;
-simulation.redo_wiring_after_repeaters = redo_wiring;
+simulation.use_joyner = 0;
+simulation.redo_wiring_after_repeaters = 0;
 simulation.topdown_WLARI = 1;
 
 
@@ -151,7 +148,7 @@ h_tsv_m = h_tsv_m_thin;
 tsv.height = h_tsv_m_thin;
 
 [ iidf_old l_old Ln_old pn_old pn_orig_old Cxc_old Ltot_old Cn_old Pdyn_old Plk_old Pw_old Prep_old Ng_act_old N_tsvs_old ] ...
-    = gen_design_old(Ng,alpha,k,p,S,h_tsv_m,Atf_max,AR_tsv,Ach_m2,chi,rho_m,epsr_d,Tclk,alpha_t,gate_pitch,w_trans,eps_ox,tox,N_trans_per_gate,a,Ioff,Vdd,Ro,use_joyner,redo_wiring);
+    = gen_design_old(Ng,alpha,k,p,S,h_tsv_m,Atf_max,AR_tsv,Ach_m2,chi,rho_m,epsr_d,Tclk,alpha_t,gate_pitch,w_trans,eps_ox,tox,N_trans_per_gate,a,Ioff,Vdd,Ro,simulation.use_joyner,simulation.redo_wiring_after_repeaters);
 
 chip.num_layers = S;
 [chip_new power_new wire_new repeater_new] = gen_design(chip,tsv,gate,transistor,wire,simulation);
