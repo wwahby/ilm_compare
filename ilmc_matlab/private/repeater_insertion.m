@@ -1,5 +1,5 @@
 %function [Iidf_rep h_vec k_vec Arep_used num_vec size_vec] = repeater_insertion(Iidf,Ach,Ainv_min,pn,Ln,Cn,rho_xcn,Ro_n,Co,w_gate)
-function [Iidf_rep h_vec k_vec Arep_used num_vec size_vec] = repeater_insertion(chip,gate,transistor,wire)
+function repeater = repeater_insertion(chip,gate,transistor,wire)
 %Ach (m^2)
 % Ainv_min (m^2)
 
@@ -14,6 +14,7 @@ rho_xcn = wire.resistivity;
 Ro_n = gate.output_resistance;
 Co = gate.capacitance;
 w_gate = transistor.gate_length;
+gate_pitch = chip.gate_pitch;
 
 
 Iidf = round(Iidf); % let's just deal with integer numbers of interconnects
@@ -33,6 +34,7 @@ Arep_used = 0;
 
 add_repeaters = 1;
 lmax_cur = find(Iidf>0,1,'last'); % find last nonzero XC
+lmax_last = lmax_cur;
 
 h_vec = zeros(1,lmax); % repeater area (compared to min inv)
 k_vec = zeros(1,lmax); % number of repeaters per XC
@@ -50,7 +52,7 @@ while (add_repeaters == 1)
     
     %Cxc = Cn(xc_tier)*lmax_cur*w_gate;
     Cxc = get_capacitance_from_length(lmax_cur,chip,wire); %
-    Rxc = rho_xc*lmax_cur*w_gate/pn(xc_tier)^2; % pn has units [m]
+    Rxc = rho_xc*lmax_cur*gate_pitch/pn(xc_tier)^2; % pn has units [m]
     
     if(Rxc*Cxc >= 7*Ro*Co)
     % Make sure we actually get a benefit from inserting repeaters
@@ -87,9 +89,18 @@ end
 
 %repstr = sprintf('k %d\t h %d\t Arep_ins %d\t Arep_rem %d\t lmax_cur %d \t Iidf(l) %d',k,h,Arep_ins,Arep_rem,lmax_cur,Iidf(lmax_cur));
 %disp(repstr)
+%% pack outputs
+% wire.via_area = A_vias_wiring + A_vias_repeaters;
+% wire.via_area_wires = A_vias_wiring;
+% wire.via_area_repeaters = A_vias_repeaters;
+% wire.area_per_layer = A_layer;
+% wire.delay_rc = tau_rc_vec;
+% wire.delay_repeaters = tau_rep_vec;
 
-Iidf_rep = Iidf;
-        
+repeater.num_per_wire = k_vec;
+repeater.size = h_vec;
+repeater.area_total = Arep_used;
+repeater.num_per_tier = num_vec;
         
     
     

@@ -137,7 +137,6 @@ wire.resistivity = rho_m;
 wire.dielectric_epsr = epsr_d;
 wire.layers_per_tier = 1;
 wire.routing_efficiency = 0.4;
-wire.repeater_fraction = [0.5 0.3]; % fraction of optimal repeaters to insert
 wire.Beta = [0.25 0.9];
 wire.Rc = 0;
 

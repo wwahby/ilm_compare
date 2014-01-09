@@ -1,5 +1,5 @@
-%clear all
-%close all
+clear all
+close all
 %% Chip descriptors
 
 % Stack parameters

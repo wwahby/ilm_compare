@@ -72,7 +72,7 @@ Lm = 0; % length of longest wire routed in previous tier (GP)
 % Keep track of the difference between the index of Iidf and actual length
 % since IIdf(1) corresponds to length=0
 
-while ((Ln < lmax-1) && (Ln > 0))
+while ((Ln < lmax-1) && (Ln >= 0))
     
     % Get the value of these constants for each layer we're looking at
     % Each of these can be input as a vector
